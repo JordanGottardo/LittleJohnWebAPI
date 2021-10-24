@@ -1,6 +1,6 @@
 using System;
 
-namespace LittleJohnWebAPI.Data
+namespace LittleJohnWebAPI.Data.Tickers
 {
     internal class TickerNotFoundException : Exception
     {

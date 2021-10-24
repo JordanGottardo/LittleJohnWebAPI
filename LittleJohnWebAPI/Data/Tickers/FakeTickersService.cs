@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using LittleJohnWebAPI.Utils;
 
-namespace LittleJohnWebAPI.Data
+namespace LittleJohnWebAPI.Data.Tickers
 {
     internal class FakeTickersService : IFakeTickersService
     {

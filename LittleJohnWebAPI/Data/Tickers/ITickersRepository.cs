@@ -1,4 +1,4 @@
-namespace LittleJohnWebAPI.Data
+namespace LittleJohnWebAPI.Data.Tickers
 {
     public interface ITickersRepository
     {

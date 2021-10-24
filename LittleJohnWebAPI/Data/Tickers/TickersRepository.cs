@@ -1,6 +1,6 @@
 using System;
 
-namespace LittleJohnWebAPI.Data
+namespace LittleJohnWebAPI.Data.Tickers
 {
     internal class TickersRepository : ITickersRepository
     {
@@ -21,18 +21,18 @@ namespace LittleJohnWebAPI.Data
 
         public decimal GetCurrentPrice(string ticker)
         {
-            ValidateTicker(ticker);
+            ValidateTickerOrThrow(ticker);
 
             return _fakeTickersService.GetCurrentPrice(ticker);
         }
 
         #region Utility Methods
 
-        private static void ValidateTicker(string ticker)
+        private static void ValidateTickerOrThrow(string ticker)
         {
             if (string.IsNullOrWhiteSpace(ticker))
             {
-                throw new ArgumentException("Argument invalid", nameof(ticker));
+                throw new ArgumentException("Invalid argument", nameof(ticker));
             }
         }
 

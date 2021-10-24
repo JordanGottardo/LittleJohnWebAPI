@@ -1,12 +1,13 @@
 using System;
 using FakeItEasy;
 using FluentAssertions;
-using LittleJohnWebAPI.Data;
+using LittleJohnWebAPI.Data.Tickers;
 using NUnit.Framework;
 
 namespace LittleJohnWebAPITest
 {
-    public class TickersRepositoryTest
+    [TestFixture]
+    internal class TickersRepositoryTest
     {
         #region Fixture
 
@@ -29,7 +30,7 @@ namespace LittleJohnWebAPITest
         [TestCase(null)]
         [TestCase("")]
         [TestCase("    ")]
-        public void WhenInvokedWithNullOrEmptyOrWhitespace_TickersRepository_ShouldThrowArgumentException(string ticker)
+        public void WhenInvokedWithNullOrEmptyOrWhitespace_GetCurrentPrice_ShouldThrowArgumentException(string ticker)
         {
             _tickersRepository.Invoking(repo => repo.GetCurrentPrice(ticker))
                 .Should()
@@ -37,9 +38,9 @@ namespace LittleJohnWebAPITest
         }
 
         [Test]
-        public void WhenInvokedWithUnknownTicker_TickersRepository_ShouldThrowTickerNotFoundException()
+        public void WhenInvokedWithUnknownTicker_GetCurrentPrice_ShouldThrowTickerNotFoundException()
         {
-            var ticker = "aTicker";
+            const string ticker = "aTicker";
             var exception = new TickerNotFoundException();
             A.CallTo(() => _fakeTickersService.GetCurrentPrice(ticker)).Throws(exception);
 
@@ -49,6 +50,19 @@ namespace LittleJohnWebAPITest
                 .Which
                 .Should()
                 .Be(exception);
+        }
+
+        [Test]
+        public void TickersRepository_ShouldThrowTickerNotFoundException()
+        {
+            const string ticker = "aTicker";
+            const decimal expectedPrice = 25.50m;
+            A.CallTo(() => _fakeTickersService.GetCurrentPrice(ticker)).Returns(expectedPrice);
+
+            var price = _tickersRepository.GetCurrentPrice(ticker);
+
+            price.Should().Be(expectedPrice);
+
         }
     }
 }
