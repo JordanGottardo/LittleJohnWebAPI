@@ -6,11 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LittleJohnWebAPI.Data;
 using LittleJohnWebAPI.Data.Tickers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LittleJohnWebAPI.Controllers
 {
     [ApiController]
     [Route("api")]
+    [Authorize]
     public class BrokerController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -36,6 +38,11 @@ namespace LittleJohnWebAPI.Controllers
         public IEnumerable<TickerInfo> Get()
         {
             _logger.LogInformation("tickers API logger");
+            var header = Request.Headers["Authorization"];
+            var username = User.Claims.First(claim => claim.Type == "client_id").Value;
+
+            _logger.LogInformation($"Requesting username: {username}");
+
 
             return new List<TickerInfo>
             {

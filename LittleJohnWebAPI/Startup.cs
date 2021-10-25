@@ -33,6 +33,13 @@ namespace LittleJohnWebAPI
 
             services.AddSingleton<ITickersRepository, TickersRepository>(provider => tickersRepository);
 
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", options =>
+                {
+                    options.ApiName = "littlejohnapi";
+                    options.Authority = "https://localhost:5201";
+                });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -54,6 +61,7 @@ namespace LittleJohnWebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
