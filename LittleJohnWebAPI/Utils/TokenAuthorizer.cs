@@ -13,10 +13,10 @@ namespace LittleJohnWebAPI.Utils
             var client = new HttpClient();
             var tokenResponse = await client.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
-                Address = "http://localhost:5200/connect/introspect",
+                Address = "http://identityserver:5200/connect/introspect",
                 ClientId = "introspect",
                 ClientSecret = "ScopeSecret",
-
+                
                 Token = accessToken
             });
 

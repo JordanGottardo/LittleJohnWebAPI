@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    ports:
+    - "5100:5100"
+    build:
+      context: LittleJohnWebAPI
+    depends_on:
+      - identityserver
+    networks:
+        - internal
+
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    ports:
+    - "5200:5200"
+    build:
+      context: Identity
+    networks:
+        - internal
+
+networks:
+  internal:

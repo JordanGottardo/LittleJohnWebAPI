@@ -36,7 +36,7 @@ namespace LittleJohnWebAPI
                 .AddIdentityServerAuthentication("Bearer", options =>
                 {
                     options.ApiName = "littlejohnapi";
-                    options.Authority = "https://localhost:5201";
+                    options.Authority = "https://0.0.0.0:5201";
                 });
 
             services.AddControllers();
@@ -56,7 +56,7 @@ namespace LittleJohnWebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LittleJohnWebAPI v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
