@@ -2,7 +2,7 @@
 {
     public class TickerInfo
     {
-        public string Symbol { get; set; }
-        public decimal Price { get; set; }
+        public string Symbol { get; init; }
+        public string Price { get; init; }
     }
 }

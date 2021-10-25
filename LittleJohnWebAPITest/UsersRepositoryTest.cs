@@ -28,6 +28,8 @@ namespace LittleJohnWebAPITest
 
         #endregion
 
+        #region GetUserByUsername
+
         [TestCase(null)]
         [TestCase("")]
         [TestCase("    ")]
@@ -41,7 +43,7 @@ namespace LittleJohnWebAPITest
         [Test]
         public void IfUsersIsUnknown_GetUserByUsername_ShouldThrowUserNotFoundException()
         {
-            var aUsername = "aUsername";
+            const string aUsername = "aUsername";
             var exception = new UserNotFoundException();
             A.CallTo(() => _fakeUserService.GetUserByUsername(aUsername)).Throws(exception);
 
@@ -56,7 +58,7 @@ namespace LittleJohnWebAPITest
         [Test]
         public void GetUserByUsername_ShouldReturnTheRequestedUser()
         {
-            var aUsername = "aUsername";
+            const string aUsername = "aUsername";
             var expectedUser = AUser();
             A.CallTo(() => _fakeUserService.GetUserByUsername(aUsername)).Returns(expectedUser);
 
@@ -64,6 +66,8 @@ namespace LittleJohnWebAPITest
 
             user.Should().Be(expectedUser);
         }
+
+        #endregion
 
         #region Utility Methods
 

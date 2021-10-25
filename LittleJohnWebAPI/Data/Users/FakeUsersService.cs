@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace LittleJohnWebAPI.Data.Users
 
         public FakeUsersService()
         {
-            _userDictionary = new Dictionary<string, User>
+            _userDictionary = new Dictionary<string, User>(StringComparer.OrdinalIgnoreCase)
             {
                 { "User1", new User
                 {
@@ -45,7 +46,7 @@ namespace LittleJohnWebAPI.Data.Users
                 return _userDictionary[username];
             }
 
-            throw new UserNotFoundException($"Use {username} not found");
+            throw new UserNotFoundException($"User {username} not found");
         }
     }
 }

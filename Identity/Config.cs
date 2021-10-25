@@ -81,6 +81,7 @@ namespace Identity
           {
         new ApiScope("littlejohnapi.read"),
         new ApiScope("littlejohnapi.write"),
+        new ApiScope("introspect.read"),
           };
         public static IEnumerable<ApiResource> ApiResources => new[]
         {
@@ -89,6 +90,11 @@ namespace Identity
         Scopes = new List<string> { "littlejohnapi.read", "littlejohnapi.write"},
         ApiSecrets = new List<Secret> {new Secret("ScopeSecret".Sha256())},
         UserClaims = new List<string> {"role"}
+      },
+      new ApiResource("introspect")
+      {
+          Scopes = new List<string> { "introspect.read"},
+          ApiSecrets = new List<Secret> {new Secret("ScopeSecret".Sha256())}
       }
     };
 
@@ -104,7 +110,7 @@ namespace Identity
           AllowedGrantTypes = GrantTypes.ClientCredentials,
           ClientSecrets = {new Secret("User1Password".Sha256())},
 
-          AllowedScopes = { "littlejohnapi.read", "littlejohnapi.write" }
+          AllowedScopes = { "littlejohnapi.read", "littlejohnapi.write", "introspect.read" }
         },
         new Client
         {
@@ -114,7 +120,7 @@ namespace Identity
             AllowedGrantTypes = GrantTypes.ClientCredentials,
             ClientSecrets = {new Secret("User2Password".Sha256())},
 
-            AllowedScopes = { "littlejohnapi.read", "littlejohnapi.write" }
+            AllowedScopes = { "littlejohnapi.read", "littlejohnapi.write", "introspect.read" }
         },
 
         // interactive client using code flow + pkce
