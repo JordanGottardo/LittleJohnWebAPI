@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -188,7 +189,10 @@ namespace LittleJohnWebAPI.Controllers
 
         private static string ToString(decimal value)
         {
-            return value.ToString("F");
+            return value.ToString("F", new NumberFormatInfo
+            {
+                NumberDecimalSeparator = "."
+            });
         }
 
         private static IEnumerable<TickerDateAndPrice> ToSerializableHistoricalValues(IEnumerable<TickerHistoryValue> tickerHistoryValues)
