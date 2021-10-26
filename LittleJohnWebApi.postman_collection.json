@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "428dcaf7-dfee-49df-92e2-6a5efad0a000",
+		"name": "LittleJohnWebApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Personal portfolio",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwNzJEQTM5RjVEMDcwRDVDODU3NDU3RTU2OUEzNEExIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUxNjkzNjQsImV4cCI6MTYzNTE3Mjk2NCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTIwMSIsImF1ZCI6WyJpbnRyb3NwZWN0IiwibGl0dGxlam9obmFwaSJdLCJjbGllbnRfaWQiOiJ1c2VyMSIsImp0aSI6IjRDNTYwRDAzMzFGNUUzMEJGMTU4M0U2NTE0QTQwOTAxIiwiaWF0IjoxNjM1MTY5MzY0LCJzY29wZSI6WyJpbnRyb3NwZWN0LnJlYWQiLCJsaXR0bGVqb2huYXBpLnJlYWQiXX0.PX4vrlemq8nwoA-yY1vAJehx28ofeycqXH382oyC4D_SVqmWQstuQMBRSDPYWfDvYz9pklDP3NcM5ibLZOZHVYkmIAoKS_n2jwWoeh4bZk-rZ1XchrQh73i87RiUKAl091zWXyE7nwtJUxppGShTAz8p4ekY6bYZ3a88Z22g9XL0y3aw-Pazp7Hhk7LrVEzatlWnEZ_KL1956gO-bOrE4rOsCil5iBWA7r4BpYkQuErU6ZWc-9hp_jT4iPQ9BPFKOnY6qnLxMBNafblRMRwlNiLGmgkLS8_YJXE-nz8TOlxLz_Pfd-px0l3luvSO2Gp91KI59Tv6fLyPC5oXCB-SYg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5100/api/tickers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5100",
+					"path": [
+						"api",
+						"tickers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ticker History",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVFOUYzNjFDMkVCM0U3OEQ3NjA2OTEzMUFDNEJCRTJGIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUxMTU2NjgsImV4cCI6MTYzNTExOTI2OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTIwMSIsImF1ZCI6ImxpdHRsZWpvaG5hcGkiLCJjbGllbnRfaWQiOiJ1c2VyMiIsImp0aSI6IjUwRUEwNTU4RjcwOUZGQkQ3Njk2MUMzNDNCQjRCQkNCIiwiaWF0IjoxNjM1MTE1NjY4LCJzY29wZSI6WyJsaXR0bGVqb2huYXBpLnJlYWQiXX0.a2vny2XdtBHLVhDCgYGYZlfs7NUzQk_Jztou-jJk6-eITqPxv8HZWi2bAId_-ZFMn2ROj9ziMFpsVyR_OF1KXxL8se9XrR8AYPZ1sCf8Ergsj3iAaO6MZKAccUiPm6shSk9w23Tlorj5cTGedHQ-biqwo81WWv1vYf7ad2xq7OyQpCAxyA5ilpHJQ7dTzoj-2HqJsq0HdHGveazZtiNmHutbzNlkQkdZ4lj_QOM-1u14nffAPwGXImX0tBo3DMzaAsZ-4gheIBsXmmQqQXDFoGNdKI_RuktxCtpIXtH926tzyHboOO7R3ffiDvKLktL6QmIgc2KLkOrdm25RLXrykg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5100/api/tickers/:ticker/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5100",
+					"path": [
+						"api",
+						"tickers",
+						":ticker",
+						"history"
+					],
+					"variable": [
+						{
+							"key": "ticker",
+							"value": "aapl"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User1 Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "user1",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "littlejohnapi.read",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "User1Password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5201/connect/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5201",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User2 Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "littlejohnapi.read",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "User2Password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5201/connect/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5201",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Introspect",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "littlejohnapi.read",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "User2Password",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5201/connect/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5201",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
