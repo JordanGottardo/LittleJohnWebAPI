@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6e759726-01c9-4af3-9c72-7cc1b4e67b97",
+		"_postman_id": "80045213-dd07-4ea4-b019-64bf58044957",
 		"name": "LittleJohnWebApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUwMDAxQ0FFRkRENkQ1QjhEMEVDMTZGMzhCMkFCM0MyIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzAyNjgsImV4cCI6MTYzNTI3Mzg2OCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiRUJEMjQ0NTk3MUQ0Mjk4NTBEMTFBNjZEMTBENDFCNkYiLCJpYXQiOjE2MzUyNzAyNjgsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.hlrNMWpaipDd4D2JYPdFRMfFnh80dUFE8SO2eHYb3DeAr4VXTi45-dISnW5jrVj6pHk5cP0d82j--MLS6dCKCPPv2nDJF9PxzELReQKeF8feLGXa0cb1tUyvNp3RcoIkVvjtH3eEaBsWGWV1bGn2WaR_EynakNFQ_P0p3GwV7H9wIe9osdFQAa5-LFZYK1v5qg-IE7FfZG8sz0SdQ8u2qiUY4Wql0mBtjw-SjQKLdF620N87ZCdebyuAqbw4e0aAxY0iolcGHz9DujNWHFDNEoVesBxeFGuVZCIPe2i9h7xkXpUlCe7FkMx6zzA8qyQI7rbj1vuqgoQyfHtiVHtYWg",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjAwRjM2NEE5OThCNEVEMTFEQkEwRTNBMzBBRkRGMDc2IiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzYzMDQsImV4cCI6MTYzNTI3OTkwNCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiQkMzMjBGRURGNDIwQjIyMjhENTgyQUE1RjVCQzFENDEiLCJpYXQiOjE2MzUyNzYzMDQsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.N8pEagWi1fFRDY3vCWuACCUvixiE6YzBVUxNyKo1xRUCimHEP0DeoqI8ZMWKaXMpzeqF6wE4D6Z3s-4Dc_smEK7OavlPhJ3UHYNFFOgbRDqytcAl2uMf9beHgvRH__ECszHqEQzoCD2cTIM-vsYizF5DmnXvxaiTcTlGduSji0rtyco10k-ur2_Z0qKebLjKh_kIdqV_ra5HkcFp-qiUUb4NnZyv6LUiNlsUwa9yn1aCqarRWcZLd7MbeDGRFYdI5PBSaTIfi-PVWzyn-53cp7U_CGSvdQYsqBV60leTLdvTuodu5TKvOYaMGYA9lPqq8-SesJ19s54AYKCaK8iYow",
 							"type": "string"
 						}
 					]
@@ -45,11 +45,11 @@
 			},
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"type": "basic",
+					"basic": [
 						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVFOUYzNjFDMkVCM0U3OEQ3NjA2OTEzMUFDNEJCRTJGIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUxMTU2NjgsImV4cCI6MTYzNTExOTI2OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTIwMSIsImF1ZCI6ImxpdHRsZWpvaG5hcGkiLCJjbGllbnRfaWQiOiJ1c2VyMiIsImp0aSI6IjUwRUEwNTU4RjcwOUZGQkQ3Njk2MUMzNDNCQjRCQkNCIiwiaWF0IjoxNjM1MTE1NjY4LCJzY29wZSI6WyJsaXR0bGVqb2huYXBpLnJlYWQiXX0.a2vny2XdtBHLVhDCgYGYZlfs7NUzQk_Jztou-jJk6-eITqPxv8HZWi2bAId_-ZFMn2ROj9ziMFpsVyR_OF1KXxL8se9XrR8AYPZ1sCf8Ergsj3iAaO6MZKAccUiPm6shSk9w23Tlorj5cTGedHQ-biqwo81WWv1vYf7ad2xq7OyQpCAxyA5ilpHJQ7dTzoj-2HqJsq0HdHGveazZtiNmHutbzNlkQkdZ4lj_QOM-1u14nffAPwGXImX0tBo3DMzaAsZ-4gheIBsXmmQqQXDFoGNdKI_RuktxCtpIXtH926tzyHboOO7R3ffiDvKLktL6QmIgc2KLkOrdm25RLXrykg",
+							"key": "username",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjAwRjM2NEE5OThCNEVEMTFEQkEwRTNBMzBBRkRGMDc2IiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzYzMDQsImV4cCI6MTYzNTI3OTkwNCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiQkMzMjBGRURGNDIwQjIyMjhENTgyQUE1RjVCQzFENDEiLCJpYXQiOjE2MzUyNzYzMDQsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.N8pEagWi1fFRDY3vCWuACCUvixiE6YzBVUxNyKo1xRUCimHEP0DeoqI8ZMWKaXMpzeqF6wE4D6Z3s-4Dc_smEK7OavlPhJ3UHYNFFOgbRDqytcAl2uMf9beHgvRH__ECszHqEQzoCD2cTIM-vsYizF5DmnXvxaiTcTlGduSji0rtyco10k-ur2_Z0qKebLjKh_kIdqV_ra5HkcFp-qiUUb4NnZyv6LUiNlsUwa9yn1aCqarRWcZLd7MbeDGRFYdI5PBSaTIfi-PVWzyn-53cp7U_CGSvdQYsqBV60leTLdvTuodu5TKvOYaMGYA9lPqq8-SesJ19s54AYKCaK8iYow",
 							"type": "string"
 						}
 					]
@@ -172,35 +172,35 @@
 		{
 			"name": "Introspect",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ScopeSecret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "introspect",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "client_id",
-							"value": "user2",
-							"type": "text"
-						},
-						{
-							"key": "scope",
-							"value": "littlejohnapi.read",
-							"type": "text"
-						},
-						{
-							"key": "client_secret",
-							"value": "User2Password",
-							"type": "text"
-						},
-						{
-							"key": "grant_type",
-							"value": "client_credentials",
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUwMDAxQ0FFRkRENkQ1QjhEMEVDMTZGMzhCMkFCM0MyIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzU3MjUsImV4cCI6MTYzNTI3OTMyNSwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiMjAwM0NFRjZBQjJCNjNGQUQ1RTA1Q0FEMThGQkJCNDUiLCJpYXQiOjE2MzUyNzU3MjUsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.vXlgyg6JcYdWba_IDqoBlWOGWPAumoOxjpagGQbR-V8_eVGaRFjJN4fmXw5cloGIx4DrGNdbmDVeY_WUm9mhJ1mzw6zqs5uTKZNJz24uywdENMNAduvIkWf4_uoYhQ-wSlnEytiCj8oDYmt8KED2Wts_Yhufkq4LNXvt9GrQrAV0cWq4Q0-yXnqUX50KBlZxbg_CbljdyLPCPTUuhNxUguri3AOPOiX4-15YwnMF9o-jDAlKklZ5X8MQV8QrZNp65bzOfcXs9wreXplQbRj-H9Pfs_w5r5qzSRB0TSM4yXb0s5l3WuVL0JKeIlaZeOH7nwby9ztjtQOvVOA8UlG8Yw",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:5200/connect/token",
+					"raw": "http://localhost:5200/connect/introspect",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -208,7 +208,7 @@
 					"port": "5200",
 					"path": [
 						"connect",
-						"token"
+						"introspect"
 					]
 				}
 			},
