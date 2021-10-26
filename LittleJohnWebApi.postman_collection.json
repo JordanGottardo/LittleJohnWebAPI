@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "428dcaf7-dfee-49df-92e2-6a5efad0a000",
+		"_postman_id": "6e759726-01c9-4af3-9c72-7cc1b4e67b97",
 		"name": "LittleJohnWebApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwNzJEQTM5RjVEMDcwRDVDODU3NDU3RTU2OUEzNEExIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUxNjkzNjQsImV4cCI6MTYzNTE3Mjk2NCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTIwMSIsImF1ZCI6WyJpbnRyb3NwZWN0IiwibGl0dGxlam9obmFwaSJdLCJjbGllbnRfaWQiOiJ1c2VyMSIsImp0aSI6IjRDNTYwRDAzMzFGNUUzMEJGMTU4M0U2NTE0QTQwOTAxIiwiaWF0IjoxNjM1MTY5MzY0LCJzY29wZSI6WyJpbnRyb3NwZWN0LnJlYWQiLCJsaXR0bGVqb2huYXBpLnJlYWQiXX0.PX4vrlemq8nwoA-yY1vAJehx28ofeycqXH382oyC4D_SVqmWQstuQMBRSDPYWfDvYz9pklDP3NcM5ibLZOZHVYkmIAoKS_n2jwWoeh4bZk-rZ1XchrQh73i87RiUKAl091zWXyE7nwtJUxppGShTAz8p4ekY6bYZ3a88Z22g9XL0y3aw-Pazp7Hhk7LrVEzatlWnEZ_KL1956gO-bOrE4rOsCil5iBWA7r4BpYkQuErU6ZWc-9hp_jT4iPQ9BPFKOnY6qnLxMBNafblRMRwlNiLGmgkLS8_YJXE-nz8TOlxLz_Pfd-px0l3luvSO2Gp91KI59Tv6fLyPC5oXCB-SYg",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUwMDAxQ0FFRkRENkQ1QjhEMEVDMTZGMzhCMkFCM0MyIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzAyNjgsImV4cCI6MTYzNTI3Mzg2OCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiRUJEMjQ0NTk3MUQ0Mjk4NTBEMTFBNjZEMTBENDFCNkYiLCJpYXQiOjE2MzUyNzAyNjgsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.hlrNMWpaipDd4D2JYPdFRMfFnh80dUFE8SO2eHYb3DeAr4VXTi45-dISnW5jrVj6pHk5cP0d82j--MLS6dCKCPPv2nDJF9PxzELReQKeF8feLGXa0cb1tUyvNp3RcoIkVvjtH3eEaBsWGWV1bGn2WaR_EynakNFQ_P0p3GwV7H9wIe9osdFQAa5-LFZYK1v5qg-IE7FfZG8sz0SdQ8u2qiUY4Wql0mBtjw-SjQKLdF620N87ZCdebyuAqbw4e0aAxY0iolcGHz9DujNWHFDNEoVesBxeFGuVZCIPe2i9h7xkXpUlCe7FkMx6zzA8qyQI7rbj1vuqgoQyfHtiVHtYWg",
 							"type": "string"
 						}
 					]
@@ -94,7 +94,7 @@
 						},
 						{
 							"key": "scope",
-							"value": "littlejohnapi.read",
+							"value": "littlejohnapi.read introspect.read",
 							"type": "text"
 						},
 						{
@@ -110,12 +110,12 @@
 					]
 				},
 				"url": {
-					"raw": "https://localhost:5201/connect/token",
-					"protocol": "https",
+					"raw": "http://localhost:5200/connect/token",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5201",
+					"port": "5200",
 					"path": [
 						"connect",
 						"token"
@@ -139,7 +139,7 @@
 						},
 						{
 							"key": "scope",
-							"value": "littlejohnapi.read",
+							"value": "littlejohnapi.read introspect.read",
 							"type": "text"
 						},
 						{
@@ -155,12 +155,12 @@
 					]
 				},
 				"url": {
-					"raw": "https://localhost:5201/connect/token",
-					"protocol": "https",
+					"raw": "http://localhost:5200/connect/token",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5201",
+					"port": "5200",
 					"path": [
 						"connect",
 						"token"
@@ -200,12 +200,12 @@
 					]
 				},
 				"url": {
-					"raw": "https://localhost:5201/connect/token",
-					"protocol": "https",
+					"raw": "http://localhost:5200/connect/token",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "5201",
+					"port": "5200",
 					"path": [
 						"connect",
 						"token"
