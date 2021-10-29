@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "80045213-dd07-4ea4-b019-64bf58044957",
+		"_postman_id": "199ecfc9-c3cd-4001-86a0-d1076d53317f",
 		"name": "LittleJohnWebApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjAwRjM2NEE5OThCNEVEMTFEQkEwRTNBMzBBRkRGMDc2IiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzYzMDQsImV4cCI6MTYzNTI3OTkwNCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiQkMzMjBGRURGNDIwQjIyMjhENTgyQUE1RjVCQzFENDEiLCJpYXQiOjE2MzUyNzYzMDQsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.N8pEagWi1fFRDY3vCWuACCUvixiE6YzBVUxNyKo1xRUCimHEP0DeoqI8ZMWKaXMpzeqF6wE4D6Z3s-4Dc_smEK7OavlPhJ3UHYNFFOgbRDqytcAl2uMf9beHgvRH__ECszHqEQzoCD2cTIM-vsYizF5DmnXvxaiTcTlGduSji0rtyco10k-ur2_Z0qKebLjKh_kIdqV_ra5HkcFp-qiUUb4NnZyv6LUiNlsUwa9yn1aCqarRWcZLd7MbeDGRFYdI5PBSaTIfi-PVWzyn-53cp7U_CGSvdQYsqBV60leTLdvTuodu5TKvOYaMGYA9lPqq8-SesJ19s54AYKCaK8iYow",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwb3J0Zm9saW8iOlsiQUFQTCIsIkFNWk4iLCJORkxYIl19.ZGieGxB81FQFSRyX2MgZqXzDXkHtwejvcHu-_u0h7Ik",
 							"type": "string"
 						}
 					]
@@ -49,7 +49,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjAwRjM2NEE5OThCNEVEMTFEQkEwRTNBMzBBRkRGMDc2IiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzYzMDQsImV4cCI6MTYzNTI3OTkwNCwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiQkMzMjBGRURGNDIwQjIyMjhENTgyQUE1RjVCQzFENDEiLCJpYXQiOjE2MzUyNzYzMDQsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.N8pEagWi1fFRDY3vCWuACCUvixiE6YzBVUxNyKo1xRUCimHEP0DeoqI8ZMWKaXMpzeqF6wE4D6Z3s-4Dc_smEK7OavlPhJ3UHYNFFOgbRDqytcAl2uMf9beHgvRH__ECszHqEQzoCD2cTIM-vsYizF5DmnXvxaiTcTlGduSji0rtyco10k-ur2_Z0qKebLjKh_kIdqV_ra5HkcFp-qiUUb4NnZyv6LUiNlsUwa9yn1aCqarRWcZLd7MbeDGRFYdI5PBSaTIfi-PVWzyn-53cp7U_CGSvdQYsqBV60leTLdvTuodu5TKvOYaMGYA9lPqq8-SesJ19s54AYKCaK8iYow",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwb3J0Zm9saW8iOlsiQUFQTCIsIkFNWk4iLCJORkxYIl19.ZGieGxB81FQFSRyX2MgZqXzDXkHtwejvcHu-_u0h7Ik",
 							"type": "string"
 						}
 					]
@@ -72,143 +72,8 @@
 					"variable": [
 						{
 							"key": "ticker",
-							"value": "aapl"
+							"value": "AMZN"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "User1 Authenticate",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "client_id",
-							"value": "user1",
-							"type": "text"
-						},
-						{
-							"key": "scope",
-							"value": "littlejohnapi.read introspect.read",
-							"type": "text"
-						},
-						{
-							"key": "client_secret",
-							"value": "User1Password",
-							"type": "text"
-						},
-						{
-							"key": "grant_type",
-							"value": "client_credentials",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:5200/connect/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5200",
-					"path": [
-						"connect",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "User2 Authenticate",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "client_id",
-							"value": "user2",
-							"type": "text"
-						},
-						{
-							"key": "scope",
-							"value": "littlejohnapi.read introspect.read",
-							"type": "text"
-						},
-						{
-							"key": "client_secret",
-							"value": "User2Password",
-							"type": "text"
-						},
-						{
-							"key": "grant_type",
-							"value": "client_credentials",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:5200/connect/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5200",
-					"path": [
-						"connect",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Introspect",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "ScopeSecret",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "introspect",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUwMDAxQ0FFRkRENkQ1QjhEMEVDMTZGMzhCMkFCM0MyIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MzUyNzU3MjUsImV4cCI6MTYzNTI3OTMyNSwiaXNzIjoiaHR0cDovL2lkZW50aXR5c2VydmVyIiwiYXVkIjpbImludHJvc3BlY3QiLCJsaXR0bGVqb2huYXBpIl0sImNsaWVudF9pZCI6InVzZXIxIiwianRpIjoiMjAwM0NFRjZBQjJCNjNGQUQ1RTA1Q0FEMThGQkJCNDUiLCJpYXQiOjE2MzUyNzU3MjUsInNjb3BlIjpbImludHJvc3BlY3QucmVhZCIsImxpdHRsZWpvaG5hcGkucmVhZCJdfQ.vXlgyg6JcYdWba_IDqoBlWOGWPAumoOxjpagGQbR-V8_eVGaRFjJN4fmXw5cloGIx4DrGNdbmDVeY_WUm9mhJ1mzw6zqs5uTKZNJz24uywdENMNAduvIkWf4_uoYhQ-wSlnEytiCj8oDYmt8KED2Wts_Yhufkq4LNXvt9GrQrAV0cWq4Q0-yXnqUX50KBlZxbg_CbljdyLPCPTUuhNxUguri3AOPOiX4-15YwnMF9o-jDAlKklZ5X8MQV8QrZNp65bzOfcXs9wreXplQbRj-H9Pfs_w5r5qzSRB0TSM4yXb0s5l3WuVL0JKeIlaZeOH7nwby9ztjtQOvVOA8UlG8Yw",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:5200/connect/introspect",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5200",
-					"path": [
-						"connect",
-						"introspect"
 					]
 				}
 			},
