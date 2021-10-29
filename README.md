@@ -8,7 +8,7 @@ LittleJohn is made of _LittleJohnWebAPI.exe_, which is the server side component
 This component requires to be running in order to access the API.
 
 ## First approach: docker run
-You can launch both components by using _docker build_ and _docker run_ (requires [Docker](https://www.docker.com/) installed on your machine). It will take care of building and running the server.
+You can launch the server by using _docker build_ and _docker run_ (requires [Docker](https://www.docker.com/) installed on your machine). It will take care of building and running the server.
 
 First of all clone the repository, then open a terminal in the _LittleJohnWebAPI_ folder (where the Dockerfile_ is located). Then launch:
 
