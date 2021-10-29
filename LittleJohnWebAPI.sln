@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LittleJohnWebAPI", "LittleJohnWebAPI\LittleJohnWebAPI.csproj", "{FD0BD872-FAE6-4FBD-AAA1-CF2A8827047F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleJohnWebAPITest", "LittleJohnWebAPITest\LittleJohnWebAPITest.csproj", "{936E0984-5FCD-4067-963C-CE075BF009FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Identity\Identity.csproj", "{ABF0456A-8FEC-4C6E-A3E1-658CFCBF3D70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LittleJohnWebAPITest", "LittleJohnWebAPITest\LittleJohnWebAPITest.csproj", "{936E0984-5FCD-4067-963C-CE075BF009FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{936E0984-5FCD-4067-963C-CE075BF009FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{936E0984-5FCD-4067-963C-CE075BF009FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{936E0984-5FCD-4067-963C-CE075BF009FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABF0456A-8FEC-4C6E-A3E1-658CFCBF3D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF0456A-8FEC-4C6E-A3E1-658CFCBF3D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABF0456A-8FEC-4C6E-A3E1-658CFCBF3D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF0456A-8FEC-4C6E-A3E1-658CFCBF3D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

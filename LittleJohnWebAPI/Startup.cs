@@ -28,13 +28,6 @@ namespace LittleJohnWebAPI
             services.AddSingleton<ITickersRepository, TickersRepository>(provider => tickersRepository);
             services.AddSingleton<ITokenUtils, TokenUtils>(provider => tokenAuthorizer);
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication("Bearer", options =>
-                {
-                    options.ApiName = "littlejohnapi";
-                    options.Authority = "https://0.0.0.0:5201";
-                });
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
