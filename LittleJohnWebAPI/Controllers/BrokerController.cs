@@ -9,7 +9,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using LittleJohnWebAPI.Data.Tickers;
-using LittleJohnWebAPI.Data.Users;
 using LittleJohnWebAPI.Utils;
 using Microsoft.AspNetCore.Http;
 
@@ -19,44 +18,42 @@ namespace LittleJohnWebAPI.Controllers
     [Route("api")]
     public class BrokerController : ControllerBase
     {
-
         #region Private fields
 
         private readonly ITickersRepository _tickersRepository;
-        private readonly IUsersRepository _usersRepository;
-        private readonly ITokenAuthorizer _tokenAuthorizer;
+        private readonly ITokenUtils _tokenUtils;
         private readonly ILogger<BrokerController> _logger;
 
         #endregion
 
+        #region Initialization
+
         public BrokerController(
             ITickersRepository tickersRepository, 
-            IUsersRepository usersRepository,  
-            ITokenAuthorizer tokenAuthorizer,
+            ITokenUtils tokenUtils,
             ILogger<BrokerController> logger)
         {
             _tickersRepository = tickersRepository;
-            _usersRepository = usersRepository;
-            _tokenAuthorizer = tokenAuthorizer;
+            _tokenUtils = tokenUtils;
             _logger = logger;
         }
 
+        #endregion
+
         [HttpGet]
         [Route("tickers")]
-        public async Task<ActionResult<IEnumerable<TickerInfo>>> GetUserPortfolio()
+        public ActionResult<IEnumerable<TickerInfo>> GetUserPortfolio()
         {
             _logger.LogInformation("Get user ticker portfolio invoked");
             var stopWatch = Stopwatch.StartNew();
 
             try
             {
-                var username = await AuthorizeRequestingUserOrFail();
-
-                var user = _usersRepository.GetUserByUsername(username);
+                var portfolio = GetUserPortfolioOrFail();
 
                 _logger.LogInformation($"Get user ticker portfolio finished, elapsed time {stopWatch.Elapsed}");
-
-                return user.Portfolio.Select(ToTickerInfo).ToList();
+                
+                return portfolio.Select(ToTickerInfo).ToList();
             }
             catch (ArgumentException e)
             {
@@ -68,15 +65,15 @@ namespace LittleJohnWebAPI.Controllers
                 LogError(e);
                 return BadRequest("Missing or wrong header value: ensure you are using Basic Auth scheme with access token as username and empty password");
             }
-            catch (UserNotAuthorizedException e)
+            catch (InvalidPortfolioException e)
             {
                 LogError(e);
-                return Unauthorized("Access token is not valid");
+                return BadRequest("Invalid portfolio provided: ensure the provided portfolio has a minimum of 1 to a maximum of 10 tickers");
             }
-            catch (UserNotFoundException e)
+            catch (InvalidTokenException e)
             {
                 LogError(e);
-                return NotFound("User not found");
+                return Unauthorized("Invalid access token provided");
             }
             catch (TickerNotFoundException e)
             {
@@ -92,7 +89,7 @@ namespace LittleJohnWebAPI.Controllers
 
         [HttpGet]
         [Route("tickers/{ticker}/history")]
-        public async Task<ActionResult<IEnumerable<TickerDateAndPrice>>> GetTickerHistory(string ticker)
+        public ActionResult<IEnumerable<TickerDateAndPrice>> GetTickerHistory(string ticker)
         {
             _logger.LogInformation($"Get ticker history invoked for ticker {ticker}");
             
@@ -100,7 +97,7 @@ namespace LittleJohnWebAPI.Controllers
 
             try
             {
-                await AuthorizeRequestingUserOrFail();
+                GetUserPortfolioOrFail();
 
                 var historicalValues = _tickersRepository
                     .GetLast90DaysHistoryValues(ticker)
@@ -121,10 +118,15 @@ namespace LittleJohnWebAPI.Controllers
                 LogError(e);
                 return BadRequest("Missing or wrong header value: ensure you are using Basic Auth scheme with access token as username and empty password");
             }
-            catch (UserNotAuthorizedException e)
+            catch (InvalidPortfolioException e)
             {
                 LogError(e);
-                return Unauthorized("Access token is not valid");
+                return BadRequest("Invalid portfolio provided: ensure the provided portfolio has a minimum of 1 to a maximum of 10 tickers");
+            }
+            catch (InvalidTokenException e)
+            {
+                LogError(e);
+                return Unauthorized("Invalid access token provided");
             }
             catch (TickerNotFoundException e)
             {
@@ -173,18 +175,16 @@ namespace LittleJohnWebAPI.Controllers
         {
             return new()
             {
-                Symbol = ticker,
+                Symbol = ticker.ToUpper(),
                 Price = ToString(_tickersRepository.GetCurrentPrice(ticker))
             };
         }
 
-        private async Task<string> AuthorizeRequestingUserOrFail()
+        private IEnumerable<string> GetUserPortfolioOrFail()
         {
             var accessToken = GetAccessTokenHeaderValueOrFail();
-            var username = await _tokenAuthorizer.GetAuthorizedUsernameOrFail(accessToken);
 
-            _logger.LogInformation($"Requesting user is {username}");
-            return username;
+            return _tokenUtils.GetUserPortfolioOrFail(accessToken);
         }
 
         private static string ToString(decimal value)

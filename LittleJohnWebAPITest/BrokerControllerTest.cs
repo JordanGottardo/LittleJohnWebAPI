@@ -4,7 +4,6 @@ using FakeItEasy;
 using FluentAssertions;
 using LittleJohnWebAPI.Controllers;
 using LittleJohnWebAPI.Data.Tickers;
-using LittleJohnWebAPI.Data.Users;
 using LittleJohnWebAPI.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +17,9 @@ namespace LittleJohnWebAPITest
     {
         #region Fixture
 
-        private IUsersRepository _usersRepository;
         private BrokerController _brokerController;
         private ITickersRepository _tickersRepository;
-        private ITokenAuthorizer _tokenAuthorizer;
+        private ITokenUtils _tokenUtils;
 
         #endregion
 
@@ -31,9 +29,8 @@ namespace LittleJohnWebAPITest
         public void Setup()
         {
             _tickersRepository = A.Fake<ITickersRepository>();
-            _usersRepository = A.Fake<IUsersRepository>();
-            _tokenAuthorizer = A.Fake<ITokenAuthorizer>();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer, A.Fake<ILogger<BrokerController>>());
+            _tokenUtils = A.Fake<ITokenUtils>();
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils, A.Fake<ILogger<BrokerController>>());
         }
 
         #endregion
@@ -43,14 +40,14 @@ namespace LittleJohnWebAPITest
         [Test]
         public void IfRequestIsNull_GetUserPortfolio_ShouldReturnBadRequest()
         {
-            _brokerController.GetUserPortfolio().Result.Result.Should().BeOfType<BadRequestObjectResult>();
+            _brokerController.GetUserPortfolio().Result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
         public void IfNoAuthenticationHeaderIsProvided_GetUserPortfolio_ShouldReturnBadRequest()
         {
             var httpContext = new DefaultHttpContext();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer, A.Fake<ILogger<BrokerController>>())
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils, A.Fake<ILogger<BrokerController>>())
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -58,96 +55,86 @@ namespace LittleJohnWebAPITest
                     }
                 };
 
-            _brokerController.GetUserPortfolio().Result.Result.Should().BeOfType<BadRequestObjectResult>();
+            _brokerController.GetUserPortfolio().Result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
-        public void IfTokenAuthorizerThrowsUserNotAuthorizedException_GetUserPortfolio_ShouldReturnUnauthorized()
+        public void IfTokenUtilsThrowsInvalidPortfolioException_GetUserPortfolio_ShouldReturnBadRequest()
         {
             var httpContext = AValidHttpContext();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer,  A.Fake<ILogger<BrokerController>>())
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils,  A.Fake<ILogger<BrokerController>>())
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext
                 }
             };
-            A.CallTo(() => _tokenAuthorizer.GetAuthorizedUsernameOrFail(A<string>._)).Throws<UserNotAuthorizedException>();
+            A.CallTo(() => _tokenUtils.GetUserPortfolioOrFail(A<string>._)).Throws<InvalidPortfolioException>();
 
-            _brokerController.GetUserPortfolio().Result.Result.Should().BeOfType<UnauthorizedObjectResult>();
+            _brokerController.GetUserPortfolio().Result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
-        public void IfUserRepositoryThrowsUserNotFoundException_GetUserPortfolio_ShouldReturnNotFound()
+        public void IfTokenUtilsThrowsInvalidTokenException_GetUserPortfolio_ShouldReturnUnauthorized()
         {
             var httpContext = AValidHttpContext();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer, A.Fake<ILogger<BrokerController>>())
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils, A.Fake<ILogger<BrokerController>>())
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext
                 }
             };
-            const string aUsername = "aUsername";
-            A.CallTo(() => _tokenAuthorizer.GetAuthorizedUsernameOrFail(A<string>._)).Returns(aUsername);
-            A.CallTo(() => _usersRepository.GetUserByUsername(aUsername)).Throws<UserNotFoundException>();
+            A.CallTo(() => _tokenUtils.GetUserPortfolioOrFail(A<string>._)).Throws<InvalidTokenException>();
 
-            _brokerController.GetUserPortfolio().Result.Result.Should().BeOfType<NotFoundObjectResult>();
+            _brokerController.GetUserPortfolio().Result.Should().BeOfType<UnauthorizedObjectResult>();
         }
 
         [Test]
         public void IfTickersRepositoryThrowsTickerNotFound_GetUserPortfolio_ShouldReturnNotFound()
         {
             var httpContext = AValidHttpContext();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer, A.Fake<ILogger<BrokerController>>())
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils, A.Fake<ILogger<BrokerController>>())
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext
                 }
             };
-            const string aUsername = "aUsername";
-            const string aTicker = "aTicker";
-            A.CallTo(() => _tokenAuthorizer.GetAuthorizedUsernameOrFail(A<string>._)).Returns(aUsername);
-            A.CallTo(() => _usersRepository.GetUserByUsername(aUsername)).Returns(new User
-            {
-                Portfolio = new List<string>
-                {
-                    aTicker
-                }
-            });
-            A.CallTo(() => _tickersRepository.GetCurrentPrice(aTicker)).Throws<TickerNotFoundException>();
+            const string ticker = "aTicker";
+            A.CallTo(() => _tokenUtils.GetUserPortfolioOrFail(A<string>._)).Returns(new List<string>{ticker});
+            A.CallTo(() => _tickersRepository.GetCurrentPrice(ticker)).Throws<TickerNotFoundException>();
 
-            _brokerController.GetUserPortfolio().Result.Result.Should().BeOfType<NotFoundObjectResult>();
+            _brokerController.GetUserPortfolio().Result.Should().BeOfType<NotFoundObjectResult>();
         }
 
         [Test]
         public void HappyPath()
         {
             var httpContext = AValidHttpContext();
-            _brokerController = new BrokerController(_tickersRepository, _usersRepository, _tokenAuthorizer, A.Fake<ILogger<BrokerController>>())
+            _brokerController = new BrokerController(_tickersRepository, _tokenUtils, A.Fake<ILogger<BrokerController>>())
             {
                 ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext
                 }
             };
-            const string aUsername = "aUsername";
             const string aTicker = "aTicker";
-            const decimal expectedPrice = 10.50m;
-            A.CallTo(() => _tokenAuthorizer.GetAuthorizedUsernameOrFail(A<string>._)).Returns(aUsername);
-            A.CallTo(() => _usersRepository.GetUserByUsername(aUsername)).Returns(new User
-            {
-                Portfolio = new List<string>
-                {
-                    aTicker
-                }
-            });
-            A.CallTo(() => _tickersRepository.GetCurrentPrice(aTicker)).Returns(expectedPrice);
+            const string anotherTicker = "anotherTicker";
+            const decimal aTickerExpectedPrice = 10.50m;
+            const decimal anotherTickerExpectedPrice = 123.22m;
+            A.CallTo(() => _tokenUtils.GetUserPortfolioOrFail(A<string>._)).Returns(new List<string> { aTicker, anotherTicker });
+            A.CallTo(() => _tickersRepository.GetCurrentPrice(aTicker)).Returns(aTickerExpectedPrice);
+            A.CallTo(() => _tickersRepository.GetCurrentPrice(anotherTicker)).Returns(anotherTickerExpectedPrice);
 
-            var result = _brokerController.GetUserPortfolio().Result;
-            result.Value.First().Symbol.Should().Be(aTicker);
-            result.Value.First().Price.Should().Be("10.50");
+            var result = _brokerController.GetUserPortfolio();
+
+            var userPortfolio = result.Value.ToList();
+            userPortfolio.Should().HaveCount(2);
+            userPortfolio[0].Symbol.Should().Be("ATICKER");
+            userPortfolio[0].Price.Should().Be("10.50");
+            userPortfolio[1].Symbol.Should().Be("ANOTHERTICKER");
+            userPortfolio[1].Price.Should().Be("123.22");
         }
 
         #endregion
@@ -157,8 +144,7 @@ namespace LittleJohnWebAPITest
         private static DefaultHttpContext AValidHttpContext()
         {
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] =
-                "Basic ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklqY3dOekpFUVRNNVJqVkVNRGN3UkRWRE9EVTNORFUzUlRVMk9VRXpORUV4SWl3aWRIbHdJam9pWVhRcmFuZDBJbjAuZXlKdVltWWlPakUyTXpVeE5qa3pOalFzSW1WNGNDSTZNVFl6TlRFM01qazJOQ3dpYVhOeklqb2lhSFIwY0hNNkx5OXNiMk5oYkdodmMzUTZOVEl3TVNJc0ltRjFaQ0k2V3lKcGJuUnliM053WldOMElpd2liR2wwZEd4bGFtOW9ibUZ3YVNKZExDSmpiR2xsYm5SZmFXUWlPaUoxYzJWeU1TSXNJbXAwYVNJNklqUkROVFl3UkRBek16RkdOVVV6TUVKR01UVTRNMFUyTlRFMFFUUXdPVEF4SWl3aWFXRjBJam94TmpNMU1UWTVNelkwTENKelkyOXdaU0k2V3lKcGJuUnliM053WldOMExuSmxZV1FpTENKc2FYUjBiR1ZxYjJodVlYQnBMbkpsWVdRaVhYMC5QWDR2cmxlbXE4bndvQS15WTF2QUplaHgyOG9mZXljcVhIMzgyb3lDNERfU1ZxbVdRc3R1UU1CUlNEUFlXZkR2WXo5cGtsRFAzTmNNNWliTFpPWkhWWWttSUFvS1NfbjJqd1dvZWg0YlprLXJaMVhjaHJRaDczaTg3UmlVS0FsMDkxeldYeUU3bnd0SlV4cHBHU2hUQXo4cDRla1k2YllaM2E4OFoyMmc5WEwweTNhdy1QYXpwN0hoazdMclZFemF0bFduRVpfS0wxOTU2Z08tYk9yRTRyT3NDaWw1aUJXQTdyNEJwWWtRdUVyVTZaV2MtOWhwX2pUNGlQUTlCUEZLT25ZNnFuTHhNQk5hZmJsUk1Sd2xOaUxHbWdrTFM4X1lKWEUtbno4VE9seEx6X1BmZC1weDBsM2x1dlNPMkdwOTFLSTU5VHY2Zkx5UEM1b1hDQi1TWWc=";
+            httpContext.Request.Headers["Authorization"] = "Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SndiM0owWm05c2FXOGlPbHNpUVVGUVRDSXNJa0ZOV2s0aUxDSk9Sa3hZSWwxOS5aR2llR3hCODFGUUZTUnlYMk1nWnFYekRYa0h0d2VqdmNIdS1fdTBoN0lr";
             return httpContext;
         }
 

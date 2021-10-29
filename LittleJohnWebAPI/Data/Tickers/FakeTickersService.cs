@@ -9,9 +9,7 @@ namespace LittleJohnWebAPI.Data.Tickers
     {
         #region Private fields
 
-        private readonly IDictionary<string, decimal> _currentTickerPriceDictionary;
-        private readonly IDictionary<string, IEnumerable<TickerHistoryValue>> _last90DaysTickerHistoryDictionary;
-        private readonly Random _random;
+        private readonly IDictionary<string, int> _tickers;
 
         #endregion
 
@@ -19,48 +17,38 @@ namespace LittleJohnWebAPI.Data.Tickers
 
         public FakeTickersService()
         {
-            _random = new Random(1234);
-
-            _currentTickerPriceDictionary = new Dictionary<string, decimal>(StringComparer.OrdinalIgnoreCase)
+            _tickers = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
             {
-                {"AAPL", _random.NextDecimal()},
-                {"MSFT", _random.NextDecimal()},
-                {"GOOG", _random.NextDecimal()},
-                {"AMZN", _random.NextDecimal()},
-                {"FB", _random.NextDecimal()},
-                {"TSLA", _random.NextDecimal()},
-                {"NVDA", _random.NextDecimal()},
-                {"JPM", _random.NextDecimal()},
-                {"BABA", _random.NextDecimal()},
-                {"JNJ", _random.NextDecimal()},
-                {"WMT", _random.NextDecimal()},
-                {"PG", _random.NextDecimal()},
-                {"PYPL", _random.NextDecimal()},
-                {"DIS", _random.NextDecimal()},
-                {"ADBE", _random.NextDecimal()},
-                {"PFE", _random.NextDecimal()},
-                {"V", _random.NextDecimal()},
-                {"MA", _random.NextDecimal()},
-                {"CRM", _random.NextDecimal()},
-                {"NFLX", _random.NextDecimal()}
+                {"AAPL", 1},
+                {"MSFT", 2},
+                {"GOOG", 3},
+                {"AMZN", 4},
+                {"FB", 5},
+                {"TSLA", 6},
+                {"NVDA", 7},
+                {"JPM", 8},
+                {"BABA", 9},
+                {"JNJ", 10},
+                {"WMT", 11},
+                {"PG", 12},
+                {"PYPL", 13},
+                {"DIS", 14},
+                {"ADBE", 15},
+                {"PFE", 16},
+                {"V", 17},
+                {"MA", 18},
+                {"CRM", 19},
+                {"NFLX", 20}
             };
-
-            _last90DaysTickerHistoryDictionary = new Dictionary<string, IEnumerable<TickerHistoryValue>>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var ticker in _currentTickerPriceDictionary.Keys)
-            {
-                _last90DaysTickerHistoryDictionary[ticker] = GenerateFakeHistoryValues(_currentTickerPriceDictionary[ticker]);
-
-            }
         }
 
         #endregion
 
         public decimal GetCurrentPrice(string ticker)
         {
-            if (_currentTickerPriceDictionary.ContainsKey(ticker))
+            if (_tickers.ContainsKey(ticker))
             {
-                return _currentTickerPriceDictionary[ticker];
+                return GenerateTickerPrice(ticker, DateTime.Today);
             }
 
             throw new TickerNotFoundException($"Ticker {ticker} not found");
@@ -68,9 +56,9 @@ namespace LittleJohnWebAPI.Data.Tickers
 
         public IEnumerable<TickerHistoryValue> GetLast90DaysHistoryValues(string ticker)
         {
-            if (_last90DaysTickerHistoryDictionary.ContainsKey(ticker))
+            if (_tickers.ContainsKey(ticker))
             {
-                return _last90DaysTickerHistoryDictionary[ticker];
+                return GenerateFakeHistoryValues(ticker);
             }
 
             throw new TickerNotFoundException($"Ticker {ticker} not found");
@@ -78,31 +66,40 @@ namespace LittleJohnWebAPI.Data.Tickers
 
         #region Utility Methods
 
-        private IEnumerable<TickerHistoryValue> GenerateFakeHistoryValues(decimal todayPrice)
+        private IEnumerable<TickerHistoryValue> GenerateFakeHistoryValues(string ticker)
         {
-            var today = DateTime.Now;
+            var today = DateTime.Today;
 
-            var tickerHistoryValue = new List<TickerHistoryValue>
-            {
-                new()
-                {
-                    Day = today,
-                    Price = todayPrice
-                }
-            };
+            var tickerHistoryValue = new List<TickerHistoryValue>();
 
-            for (var i = 1; i < 90; i++)
+            for (var i = 0; i < 90; i++)
             {
+                var day = today.AddDays(i * -1);
+
                 tickerHistoryValue.Add(new TickerHistoryValue
                 {
-                    Day = today.AddDays(i * -1),
-                    Price = _random.NextDecimal()
+                    Day = day,
+                    Price = GenerateTickerPrice(ticker, day)
                 });
             }
 
             return tickerHistoryValue;
         }
 
+        private decimal GenerateTickerPrice(string ticker, DateTime date)
+        {
+            var seed = _tickers[ticker] + GetTotalHoursBetweenDateAndUnixEpoch(date);
+            return new Random(seed).NextDecimal();
+        }
+
+        private static int GetTotalHoursBetweenDateAndUnixEpoch(DateTime date)
+        {
+            return Convert.ToInt32(
+                date
+                .ToUniversalTime()
+                .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))
+                .TotalHours);
+        }
         #endregion
     }
 }

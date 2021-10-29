@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using LittleJohnWebAPI.Data.Tickers;
-using LittleJohnWebAPI.Data.Users;
 using LittleJohnWebAPI.Utils;
 
 namespace LittleJohnWebAPI
@@ -24,13 +23,10 @@ namespace LittleJohnWebAPI
         {
             var fakeTickersService = new FakeTickersService();
             var tickersRepository = new TickersRepository(fakeTickersService);
-            var fakeUsersService = new FakeUsersService();
-            var usersRepository = new UsersRepository(fakeUsersService);
-            var tokenAuthorizer = new TokenAuthorizer();
+            var tokenAuthorizer = new TokenUtils();
 
             services.AddSingleton<ITickersRepository, TickersRepository>(provider => tickersRepository);
-            services.AddSingleton<IUsersRepository, UsersRepository>(provider => usersRepository);
-            services.AddSingleton<ITokenAuthorizer, TokenAuthorizer>(provider => tokenAuthorizer);
+            services.AddSingleton<ITokenUtils, TokenUtils>(provider => tokenAuthorizer);
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication("Bearer", options =>
