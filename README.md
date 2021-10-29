@@ -3,48 +3,51 @@
 LittleJohn is a sample ASP Net Core 5.0 Web API project which mocks an online broker where users hold a portfolio of stocks.
 
 # Run the application
-LittleJohn is made of two components: 
-* _IdentityServer_, which manages access token generation and validation
-*  _LittleJohnWebAPI_, which manages the broker API.
+LittleJohn is made of _LittleJohnWebAPI.exe_, which is the server side component that manages the broker API.
 
-Both of these components need to be running in order to access the required APIs.
+This component requires to be running in order to access the API.
 
-## First approach: docker-compose
-You can launch both components by using _docker-compose_ (requires [Docker](https://www.docker.com/) installed on your machine). It will take care of building and runnig both components.
+## First approach: docker run
+You can launch both components by using _docker build_ and _docker run_ (requires [Docker](https://www.docker.com/) installed on your machine). It will take care of building and running the server.
 
-First of all clone the repository, then open a terminal in the root of the local repository (where the _docker-compose.yml_ file is located). Then launch:
+First of all clone the repository, then open a terminal in the _LittleJohnWebAPI_ folder (where the Dockerfile_ is located). Then launch:
 
-```docker-compose up```
+```
+docker build -t little-john-web-api .
+docker run -p 50051:50051 little-john-web-api
+```
 
 ## Second approach: contained executables
-If for some reason you don't want to use _docker-compose_, you can launch the application by downloading and unzipping the _LittleJohnWebApi package.zip_ provided in the root of this repository. Then you need to launch the two executables:
-* _IdentityServer/Identity.exe_
-* _LittleJohnWebApi/LittleJohnWebAPI.exe_
+If for some reason you don't want to use Docker commands, you can launch the application by downloading and unzipping the _LittleJohnWebApi package.zip_ provided in the root of this repository. Then you need to launch the executable _LittleJohnWebApi/LittleJohnWebAPI.exe_
 
 You should not need to install anything in order to run the executables, as they have been published in a self-contained manner.
 
 # Test the application
-No matter what approach you chose to launch the project, _IdentityServer_ can be reached at http://localhost:5200 and  _LittleJohnWebAPI_ at http://localhost:5100.
+No matter what approach you chose to launch the project  _LittleJohnWebAPI_ can be reached at http://localhost:5100.
 
 You can test the application using the Postman collection _LittleJohnWebApi.postman_collection.json_ provided in the root of this repository. 
 
 
 Import the collection in Postman. You will see the following requests:
 
-
 ![Postman requests](images/postman-requests.png)
 
-A couple of users, _user1_ and _user2_, have been set up as demo users. First of all you need to retrieve an Access Token using the _User Authenticate_ API:
+## Generate access token
+For testing purposes, you need to generate a JWT access token (for example, on https://jwt.io/).
+The token needs to have the following structure:
 
-![Access token](images/access-token.png)
+![Generate access token](images/generate-access-token.png)
 
-Then you need to copy the access token you just acquired and you can use it to access the _Personal portfolio_ and _Ticker History_ APIs.
+In particular, the token needs to be in JWT format (xxxxx.yyyyy.zzzzz). In addition, it is required to specify in the payload "portfolio" field the list of tickers associated to the user for which you are requesting the token.
+You need to specify a minimum of 1 to a maximum of 10 tickers.
 
-Copy it into the _username_ field in the _Authorization_ tab of a request, while leaving the _password_ filed empty.
+## Invoke the API
+
+You can use the generated access token it to access the _Personal portfolio_ and _Ticker History_ APIs.
+
+Copy it into the _username_ field in the _Authorization_ tab of a request, while leaving the _password_ field empty.
 
 ![Use access token](images/use-access-token.png)
-
-The _Introspect_ API is only useful for testing Access Token validity.
 
 # Automated tests
 Unit tests have been written using the arrange-assert-act pattern. [Nunit](https://nunit.org/), [FakeItEasy](https://fakeiteasy.github.io/) and [FluentAssertions](https://fluentassertions.com/) have been used to write the tests.
